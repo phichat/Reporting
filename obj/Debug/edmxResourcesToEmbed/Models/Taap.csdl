@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_TaapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PartReceive">
+    <Key>
+      <PropertyRef Name="ReceiveID" />
+    </Key>
+    <Property Name="ReceiveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReceiveNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PackingMonth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Consignment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CommissionFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CommissionTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Shop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustomEntryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateToProduction" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PartNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Qty" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="QPV" Type="Int32" Nullable="false" />
+    <Property Name="UM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReceiveReference">
+    <Key>
+      <PropertyRef Name="VDOID" />
+    </Key>
+    <Property Name="VDOID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="VDONo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ModelType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PaintTrim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CommissionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReceiveNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChassisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EngineNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="db_TaapEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PartReceive" EntityType="Self.PartReceive" />
+    <EntitySet Name="ReceiveReference" EntityType="Self.ReceiveReference" />
+  </EntityContainer>
+</Schema>

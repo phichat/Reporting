@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_TaapModelStoreContainer" CdmEntityContainer="db_TaapEntities">
+    <EntitySetMapping Name="PartReceive">
+      <EntityTypeMapping TypeName="db_TaapModel.PartReceive">
+        <MappingFragment StoreEntitySet="PartReceive">
+          <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
+          <ScalarProperty Name="ReceiveNo" ColumnName="ReceiveNo" />
+          <ScalarProperty Name="PackingMonth" ColumnName="PackingMonth" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Consignment" ColumnName="Consignment" />
+          <ScalarProperty Name="CommissionFrom" ColumnName="CommissionFrom" />
+          <ScalarProperty Name="CommissionTo" ColumnName="CommissionTo" />
+          <ScalarProperty Name="Shop" ColumnName="Shop" />
+          <ScalarProperty Name="CustomEntryNo" ColumnName="CustomEntryNo" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="DateToProduction" ColumnName="DateToProduction" />
+          <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+          <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="QPV" ColumnName="QPV" />
+          <ScalarProperty Name="UM" ColumnName="UM" />
+          <ScalarProperty Name="PartType" ColumnName="PartType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReceiveReference">
+      <EntityTypeMapping TypeName="db_TaapModel.ReceiveReference">
+        <MappingFragment StoreEntitySet="ReceiveReference">
+          <ScalarProperty Name="VDOID" ColumnName="VDOID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="VDONo" ColumnName="VDONo" />
+          <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
+          <ScalarProperty Name="ModelType" ColumnName="ModelType" />
+          <ScalarProperty Name="ProductionNo" ColumnName="ProductionNo" />
+          <ScalarProperty Name="PaintTrim" ColumnName="PaintTrim" />
+          <ScalarProperty Name="CommissionNo" ColumnName="CommissionNo" />
+          <ScalarProperty Name="ReceiveNo" ColumnName="ReceiveNo" />
+          <ScalarProperty Name="ChassisNo" ColumnName="ChassisNo" />
+          <ScalarProperty Name="EngineNo" ColumnName="EngineNo" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

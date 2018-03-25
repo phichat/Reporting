@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_TaapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PartReceive">
+    <Key>
+      <PropertyRef Name="ReceiveID" />
+    </Key>
+    <Property Name="ReceiveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReceiveNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PackingMonth" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Consignment" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CommissionFrom" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CommissionTo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Shop" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomEntryNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateToProduction" Type="datetime" Nullable="false" />
+    <Property Name="PartNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PartDescription" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Qty" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="QPV" Type="int" Nullable="false" />
+    <Property Name="UM" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PartType" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReceiveReference">
+    <Key>
+      <PropertyRef Name="VDOID" />
+    </Key>
+    <Property Name="VDOID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="VDONo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReferenceNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ModelType" Type="varchar" MaxLength="50" />
+    <Property Name="ProductionNo" Type="varchar" MaxLength="50" />
+    <Property Name="PaintTrim" Type="varchar" MaxLength="50" />
+    <Property Name="CommissionNo" Type="varchar" MaxLength="50" />
+    <Property Name="ReceiveNo" Type="varchar" MaxLength="50" />
+    <Property Name="ChassisNo" Type="varchar" MaxLength="50" />
+    <Property Name="EngineNo" Type="varchar" MaxLength="50" />
+    <Property Name="Remark" Type="varchar(max)" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityContainer Name="db_TaapModelStoreContainer">
+    <EntitySet Name="PartReceive" EntityType="Self.PartReceive" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReceiveReference" EntityType="Self.ReceiveReference" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
