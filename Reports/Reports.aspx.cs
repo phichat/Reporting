@@ -241,6 +241,7 @@ namespace Reporting.Reports
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./StockMaterial.rpt"));
+                rptDoc.Refresh();
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("Shop", shop);
                 rptDoc.SetParameterValue("dateFrom", dateFrom.ToString("yyyy-MM-dd"));
