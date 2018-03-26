@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="TaapMssql-Web.config Connection String" description="TaapMssql Connection String used in web.config by the application to access the database." defaultValue="Data Source=DESKTOP-4HQG5GN\MSSQL;Initial Catalog=db_Taap;Persist Security Info=True;User ID=sa;Password=sa;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\1\.\ Repository\\Reporting\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TaapMssql']/@connectionString" />
+  <parameter name="TaapMssql-Web.config Connection String" description="TaapMssql Connection String used in web.config by the application to access the database." defaultValue="Data Source=KRIRKKAIWIN12\SQL2012;Initial Catalog=db_Taap;Persist Security Info=True;User ID=sa;Password=sql@2012;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Administrator\\Documents\\GitHub\\Reporting\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TaapMssql']/@connectionString" />
   </parameter>
 </parameters>
