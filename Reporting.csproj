@@ -117,8 +117,8 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\PartsReceivePDF.cs">
-      <DependentUpon>PartsReceivePDF.rpt</DependentUpon>
+    <Compile Include="Reports\PartsReceive.cs">
+      <DependentUpon>PartsReceive.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -128,12 +128,6 @@
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Reports\PartsReceiveExcel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PartsReceiveExcel.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
@@ -160,17 +154,13 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>StockMaterial.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PartsReceivePDF.rpt">
+    <EmbeddedResource Include="Reports\PartsReceive.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PartsReceivePDF.cs</LastGenOutput>
+      <LastGenOutput>PartsReceive.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\SotckAvailable.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SotckAvailable.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\PartsReceiveExcel.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PartsReceiveExcel.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -114,7 +114,7 @@ namespace Reporting.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartNo {
+        public CrystalDecisions.Shared.IParameterField Parameter_ReceiveNo {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -122,7 +122,7 @@ namespace Reporting.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_ReceiveNo {
+        public CrystalDecisions.Shared.IParameterField Parameter_PartNo {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }

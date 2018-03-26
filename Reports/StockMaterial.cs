@@ -106,7 +106,7 @@ namespace Reporting.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dateFrom {
+        public CrystalDecisions.Shared.IParameterField Parameter_DateFrom {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -114,7 +114,7 @@ namespace Reporting.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dateTo {
+        public CrystalDecisions.Shared.IParameterField Parameter_DateTo {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }

@@ -16,14 +16,14 @@ namespace Reporting.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PartsReceiveExcel : ReportClass {
+    public class PartsReceive : ReportClass {
         
-        public PartsReceiveExcel() {
+        public PartsReceive() {
         }
         
         public override string ResourceName {
             get {
-                return "PartsReceiveExcel.rpt";
+                return "PartsReceive.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Reporting.Reports {
         
         public override string FullResourceName {
             get {
-                return "Reporting.Reports.PartsReceiveExcel.rpt";
+                return "Reporting.Reports.PartsReceive.rpt";
             }
             set {
                 // Do nothing
@@ -98,7 +98,7 @@ namespace Reporting.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_receiveNo {
+        public CrystalDecisions.Shared.IParameterField Parameter_ReceiveNo {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -106,9 +106,9 @@ namespace Reporting.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPartsReceiveExcel : Component, ICachedReport {
+    public class CachedPartsReceive : Component, ICachedReport {
         
-        public CachedPartsReceiveExcel() {
+        public CachedPartsReceive() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace Reporting.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PartsReceiveExcel rpt = new PartsReceiveExcel();
+            PartsReceive rpt = new PartsReceive();
             rpt.Site = this.Site;
             return rpt;
         }

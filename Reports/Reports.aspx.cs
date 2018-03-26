@@ -62,20 +62,7 @@ namespace Reporting.Reports
             try
             {
                 conn.Open();
-
-                string sqlQry = "SELECT DISTINCT";
-                sqlQry += " DateToProduction";
-                sqlQry += " , CustomEntryNo";
-                sqlQry += " , InvoiceNo";
-                sqlQry += " , ReceiveNo";
-                sqlQry += " , PartNo";
-                sqlQry += " , PartDescription";
-                sqlQry += " , Qty";
-                sqlQry += " , QPV";
-                sqlQry += " , Amount";
-                sqlQry += " , UM";
-                sqlQry += " FROM dbo.PartReceive";
-                sqlQry += " where ReceiveNo = '" + receiveNo + "'";
+                string sqlQry = "EXEC dbo.sp_rptPartsReceive '" + receiveNo + "'";
 
                 var dt = new DataTable();
                 var da = new SqlDataAdapter(sqlQry, conn);
@@ -86,13 +73,9 @@ namespace Reporting.Reports
                     ? ExportFormatType.Excel
                     : ExportFormatType.PortableDocFormat);
 
-                var file = (reportType == "pdf"
-                    ? Server.MapPath("./PartsReceivePDF.rpt")
-                    : Server.MapPath("./PartsReceiveExcel.rpt"));
-
-                rptDoc.Load(file);
+                rptDoc.Load(Server.MapPath("./PartsReceive.rpt"));
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("ReceiveNo", receiveNo);
+                rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Receive");
 
             }
@@ -110,40 +93,32 @@ namespace Reporting.Reports
         private void PartsMovement(string receiveNo, string partNo, string reportType)
         {
             conn = new SqlConnection(connTaap);
+            var cmd = new SqlCommand();
+            var dt = new DataTable();
+            var da = new SqlDataAdapter();
+            rptDoc = new ReportDocument();
+
             try
             {
                 conn.Open();
-                string sqlQry = " SELECT DISTINCT";
-                sqlQry += "  D.ReceiveDate";
-                sqlQry += "  , Consignment";
-                sqlQry += "  , H.ReceiveNo";
-                sqlQry += "  , PartNo";
-                sqlQry += "  , PartDescription";
-                sqlQry += "  , Qty";
-                sqlQry += "  , QPV";
-                sqlQry += "  , H.CommissionNo";
-                sqlQry += "  , H.[Date] AS DateFG";
-                sqlQry += "  , H.[Date] AS DateBuyOff";
-                sqlQry += "  , H.VDONo";
-                sqlQry += "  , CASE WHEN VDONo IS NULL THEN 1 ELSE 0 END Amount";
-                sqlQry += " FROM dbo.ReceiveReference AS H";
-                sqlQry += " LEFT JOIN dbo.PartReceive AS D ON D.ReceiveNo = H.ReceiveNo";
-                sqlQry += " WHERE D.ReceiveNo = '" + receiveNo + "' AND D.PartNo = '" + partNo + "'";
-                sqlQry += " ORDER BY D.ReceiveDate, D.PartNo, CommissionNo";
 
-                var dt = new DataTable();
-                var da = new SqlDataAdapter(sqlQry, conn);
+                cmd.CommandText = "dbo.sp_rptPartsMovement";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ReceiveNo", receiveNo);
+                cmd.Parameters.AddWithValue("@PartNo", partNo);
+                cmd.Connection = conn;
+
+                da.SelectCommand = cmd;
                 da.Fill(dt);
 
-                rptDoc = new ReportDocument();
                 var rptReponse = (reportType == "excel"
                     ? ExportFormatType.Excel
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./PartsMovement.rpt"));
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("ReceiveNo", receiveNo);
-                rptDoc.SetParameterValue("PartNo", partNo);
+                rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
+                rptDoc.SetParameterValue("@PartNo", partNo);
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Movement");
 
             }
@@ -154,41 +129,31 @@ namespace Reporting.Reports
             finally
             {
                 conn.Close();
+                rptDoc.Close();
             }
         }
 
         private void StockAvailable(string receiveNo, string reportType)
         {
             conn = new SqlConnection(connTaap);
+            rptDoc = new ReportDocument();
             try
             {
                 conn.Open();
-                string sqlQry = "SELECT DISTINCT";
-                sqlQry += " DateToProduction";
-                sqlQry += " , CustomEntryNo";
-                sqlQry += " , InvoiceNo";
-                sqlQry += " , ReceiveNo";
-                sqlQry += " , PartNo";
-                sqlQry += " , PartDescription";
-                sqlQry += " , Qty";
-                sqlQry += " , QPV";
-                sqlQry += " , Amount";
-                sqlQry += " , UM";
-                sqlQry += " FROM dbo.PartReceive";
-                sqlQry += " where ReceiveNo = '" + receiveNo + "'";
+                string sqlQry = "dbo.sp_rptStockAvailable '" + receiveNo + "'";
 
                 var dt = new DataTable();
                 var da = new SqlDataAdapter(sqlQry, conn);
                 da.Fill(dt);
 
-                rptDoc = new ReportDocument();
                 var rptReponse = (reportType == "excel"
                     ? ExportFormatType.Excel
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./SotckAvailable.rpt"));
+                rptDoc.Refresh();
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("ReceiveNo", receiveNo);
+                rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Stock-Available");
 
             }
@@ -199,40 +164,29 @@ namespace Reporting.Reports
             finally
             {
                 conn.Close();
+                rptDoc.Close();
             }
         }
 
         private void StockMaterial(string shop, DateTime dateFrom, DateTime dateTo, string reportType)
         {
             conn = new SqlConnection(connTaap);
+            var cmd = new SqlCommand();
+            var dt = new DataTable();
+            var da = new SqlDataAdapter();
+            rptDoc = new ReportDocument();
             try
             {
                 conn.Open();
-                string sqlQry = " SELECT";
-                sqlQry += " ReceiveDate";
-                sqlQry += " , ReceiveNo";
-                sqlQry += " , CustomEntryNo";
-                sqlQry += " , InvoiceNo";
-                sqlQry += " , CommissionFrom";
-                sqlQry += " , CommissionTo";
-                sqlQry += " , Model";
-                sqlQry += " , Shop";
-                sqlQry += " , sum(Qty) Qty";
-                sqlQry += " FROM dbo.PartReceive";
-                sqlQry += " where Shop = '" + shop + "'";
-                sqlQry += " and cast(ReceiveDate as date) between '" + dateFrom.ToString("yyyy-MM-dd") + "'";
-                sqlQry += " and '" + dateTo.ToString("yyyy-MM-dd") + "'";
-                sqlQry += " group by ReceiveDate";
-                sqlQry += " , ReceiveNo";
-                sqlQry += " , CustomEntryNo";
-                sqlQry += " , InvoiceNo";
-                sqlQry += " , CommissionFrom";
-                sqlQry += " , CommissionTo";
-                sqlQry += " , Model";
-                sqlQry += " , Shop";
 
-                var dt = new DataTable();
-                var da = new SqlDataAdapter(sqlQry, conn);
+                cmd.CommandText = "dbo.sp_rptStockMaterial";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Shop", shop);
+                cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
+                cmd.Connection = conn;
+
+                da.SelectCommand = cmd;
                 da.Fill(dt);
 
                 rptDoc = new ReportDocument();
@@ -243,9 +197,9 @@ namespace Reporting.Reports
                 rptDoc.Load(Server.MapPath("./StockMaterial.rpt"));
                 rptDoc.Refresh();
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("Shop", shop);
-                rptDoc.SetParameterValue("dateFrom", dateFrom.ToString("yyyy-MM-dd"));
-                rptDoc.SetParameterValue("dateTo", dateTo.ToString("yyyy-MM-dd"));
+                rptDoc.SetParameterValue("@Shop", shop);
+                rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
+                rptDoc.SetParameterValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Stock-Material");
 
             }
@@ -256,42 +210,30 @@ namespace Reporting.Reports
             finally
             {
                 conn.Close();
+                rptDoc.Close();
             }
         }
 
         private void CarsMovement(string receiveNo, string reportType)
         {
             conn = new SqlConnection(connTaap);
+            rptDoc = new ReportDocument();
             try
             {
                 conn.Open();
-                string sqlQry = "SELECT DISTINCT";
-                sqlQry += "   D.[Date] AS DateFG";
-                sqlQry += " , D.CommissionNo";
-                sqlQry += " , H.Model";
-                sqlQry += " , H.PackingMonth";
-                sqlQry += " , Consignment";
-                sqlQry += " , H.QPV";
-                sqlQry += " , D.[Date] AS DateBuyOff";
-                sqlQry += " , Amount";
-
-                sqlQry += " FROM db_Taap.dbo.PartReceive AS H";
-                sqlQry += " LEFT JOIN dbo.ReceiveReference AS D";
-                sqlQry += " ON D.ReceiveNo = H.ReceiveNo";
-                sqlQry += " WHERE H.ReceiveNo = '" + receiveNo + "' and D.[Status] = 1";
+                string sqlQry = "EXEC dbo.sp_rptCarsMovement '" + receiveNo + "'";
 
                 var dt = new DataTable();
                 var da = new SqlDataAdapter(sqlQry, conn);
                 da.Fill(dt);
 
-                rptDoc = new ReportDocument();
                 var rptReponse = (reportType == "excel"
                     ? ExportFormatType.Excel
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./CarsMovement.rpt"));
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("ReceiveNo", receiveNo);
+                rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Cars-Movement");
 
             }
@@ -302,6 +244,7 @@ namespace Reporting.Reports
             finally
             {
                 conn.Close();
+                rptDoc.Close();
             }
         }
 
