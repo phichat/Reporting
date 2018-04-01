@@ -46,7 +46,9 @@ namespace Reporting.Reports
 
                     case "PartsMovement":
                         var partNo = Request.QueryString["PartNo"];
-                        PartsMovement(receiveNo, partNo, reportType);
+                        var f = DateTime.Parse(Request.QueryString["DateFrom"]);
+                        var t = DateTime.Parse(Request.QueryString["DateTo"]);
+                        PartsMovement(partNo, f, t, reportType);
                         break;
 
                     case "CarsMovement":
@@ -90,7 +92,7 @@ namespace Reporting.Reports
 
         }
 
-        private void PartsMovement(string receiveNo, string partNo, string reportType)
+        private void PartsMovement(string partNo, DateTime dateFrom, DateTime dateTo, string reportType)
         {
             conn = new SqlConnection(connTaap);
             var cmd = new SqlCommand();
@@ -104,8 +106,9 @@ namespace Reporting.Reports
 
                 cmd.CommandText = "dbo.sp_rptPartsMovement";
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ReceiveNo", receiveNo);
                 cmd.Parameters.AddWithValue("@PartNo", partNo);
+                cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 cmd.Connection = conn;
 
                 da.SelectCommand = cmd;
@@ -117,8 +120,9 @@ namespace Reporting.Reports
 
                 rptDoc.Load(Server.MapPath("./PartsMovement.rpt"));
                 rptDoc.SetDataSource(dt);
-                rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
                 rptDoc.SetParameterValue("@PartNo", partNo);
+                rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
+                rptDoc.SetParameterValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Movement");
 
             }
