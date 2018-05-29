@@ -91,7 +91,7 @@ namespace Reporting.Reports
 
                 rptDoc = new ReportDocument();
                 var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.Excel
+                    ? ExportFormatType.ExcelRecord
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./PartsReceive.rpt"));
@@ -100,7 +100,6 @@ namespace Reporting.Reports
                 rptDoc.SetParameterValue("@Sdate", dateFrom.ToString("yyyy-MM-dd"));
                 rptDoc.SetParameterValue("@Edate", dateTo.ToString("yyyy-MM-dd"));
                 rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Receive");
-
             }
             catch (Exception ex)
             {
@@ -136,11 +135,9 @@ namespace Reporting.Reports
                 da.SelectCommand = cmd;
                 da.Fill(dt);
 
-                var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.Excel
-                    : ExportFormatType.PortableDocFormat);
-
-                rptDoc.Load(Server.MapPath("./PartsMovement.rpt"));
+                var rptReponse = (reportType == "excel" ? ExportFormatType.ExcelRecord : ExportFormatType.PortableDocFormat);
+                var pathFile = reportType == "excel" ? "./PartsMovementExcel.rpt" : "./PartsMovement.rpt";
+                rptDoc.Load(Server.MapPath(pathFile));
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("@Model", model);
                 rptDoc.SetParameterValue("@PartNo", partNo);
@@ -174,7 +171,7 @@ namespace Reporting.Reports
                 da.Fill(dt);
 
                 var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.Excel
+                    ? ExportFormatType.ExcelRecord
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./SotckAvailable.rpt"));
@@ -219,7 +216,7 @@ namespace Reporting.Reports
 
                 rptDoc = new ReportDocument();
                 var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.Excel
+                    ? ExportFormatType.ExcelRecord
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./StockMaterial.rpt"));
@@ -266,7 +263,7 @@ namespace Reporting.Reports
                 da.Fill(dt);
 
                 var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.Excel
+                    ? ExportFormatType.ExcelRecord
                     : ExportFormatType.PortableDocFormat);
 
                 rptDoc.Load(Server.MapPath("./CarsMovement.rpt"));
