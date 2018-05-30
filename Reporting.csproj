@@ -170,6 +170,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\CarsMovementExcel.cs">
+      <DependentUpon>CarsMovementExcel.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\CarsMovement.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -219,6 +225,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\CarsMovementExcel.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CarsMovementExcel.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CarsMovement.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CarsMovement.cs</LastGenOutput>
