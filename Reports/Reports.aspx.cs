@@ -85,21 +85,39 @@ namespace Reporting.Reports
                 cmd.Parameters.AddWithValue("@Sdate", dateFrom.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@Edate", dateTo.ToString("yyyy-MM-dd"));
                 cmd.Connection = conn;
+                cmd.CommandTimeout = 120;
 
                 da.SelectCommand = cmd;
                 da.Fill(dt);
 
                 rptDoc = new ReportDocument();
-                var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.ExcelRecord
-                    : ExportFormatType.PortableDocFormat);
-
-                rptDoc.Load(Server.MapPath("./PartsReceive.rpt"));
+                var file = (reportType == "excel") ? "./PartsReceiveExcel.rpt" : "./PartsReceive.rpt";
+                rptDoc.Load(Server.MapPath(file));
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
                 rptDoc.SetParameterValue("@Sdate", dateFrom.ToString("yyyy-MM-dd"));
                 rptDoc.SetParameterValue("@Edate", dateTo.ToString("yyyy-MM-dd"));
-                rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Receive");
+
+                // Declare variables and get the export options.
+                ExportOptions exportOpts = new ExportOptions();
+                DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+                exportOpts = rptDoc.ExportOptions;
+
+                if (reportType == "excel")
+                {
+                    ExcelFormatOptions excelFormatOpts = new ExcelFormatOptions();
+                    excelFormatOpts.ExcelUseConstantColumnWidth = true;
+                    excelFormatOpts.ExcelAreaType = AreaSectionKind.Detail;
+                    exportOpts.ExportFormatType = ExportFormatType.Excel;
+                    exportOpts.FormatOptions = excelFormatOpts;
+                }
+                else
+                {
+                    exportOpts.ExportFormatType = ExportFormatType.PortableDocFormat;
+                }
+
+                rptDoc.ExportToHttpResponse(exportOpts, Response, true, "Report-Parts-Receive");
+
             }
             catch (Exception ex)
             {
@@ -131,11 +149,12 @@ namespace Reporting.Reports
                 cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 cmd.Connection = conn;
+                cmd.CommandTimeout = 120;
 
                 da.SelectCommand = cmd;
                 da.Fill(dt);
 
-                var rptReponse = (reportType == "excel" ? ExportFormatType.ExcelRecord : ExportFormatType.PortableDocFormat);
+               
                 var pathFile = reportType == "excel" ? "./PartsMovementExcel.rpt" : "./PartsMovement.rpt";
                 rptDoc.Load(Server.MapPath(pathFile));
                 rptDoc.SetDataSource(dt);
@@ -143,7 +162,25 @@ namespace Reporting.Reports
                 rptDoc.SetParameterValue("@PartNo", partNo);
                 rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 rptDoc.SetParameterValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
-                rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Parts-Movement");
+
+                // Declare variables and get the export options.
+                ExportOptions exportOpts = new ExportOptions();
+                DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+                exportOpts = rptDoc.ExportOptions;
+
+                if (reportType == "excel")
+                {
+                    ExcelFormatOptions excelFormatOpts = new ExcelFormatOptions();
+                    excelFormatOpts.ExcelUseConstantColumnWidth = true;
+                    excelFormatOpts.ExcelAreaType = AreaSectionKind.GroupHeader;
+                    exportOpts.ExportFormatType = ExportFormatType.Excel;
+                    exportOpts.FormatOptions = excelFormatOpts;
+                }
+                else
+                {
+                    exportOpts.ExportFormatType = ExportFormatType.PortableDocFormat;
+                }
+                rptDoc.ExportToHttpResponse(exportOpts, Response, true, "Report-Parts-Movement");
 
             }
             catch (Exception ex)
@@ -170,15 +207,30 @@ namespace Reporting.Reports
                 var da = new SqlDataAdapter(sqlQry, conn);
                 da.Fill(dt);
 
-                var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.ExcelRecord
-                    : ExportFormatType.PortableDocFormat);
-
-                rptDoc.Load(Server.MapPath("./SotckAvailable.rpt"));
+                var file = reportType == "excel" ? "./SotckAvailableExcel.rpt" : "./SotckAvailable.rpt";
+                rptDoc.Load(Server.MapPath(file));
                 rptDoc.Refresh();
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("@ReceiveNo", receiveNo);
-                rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Stock-Available");
+
+                // Declare variables and get the export options.
+                ExportOptions exportOpts = new ExportOptions();
+                DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+                exportOpts = rptDoc.ExportOptions;
+
+                if (reportType == "excel")
+                {
+                    ExcelFormatOptions excelFormatOpts = new ExcelFormatOptions();
+                    excelFormatOpts.ExcelUseConstantColumnWidth = true;
+                    excelFormatOpts.ExcelAreaType = AreaSectionKind.Detail;
+                    exportOpts.ExportFormatType = ExportFormatType.Excel;
+                    exportOpts.FormatOptions = excelFormatOpts;
+                }
+                else
+                {
+                    exportOpts.ExportFormatType = ExportFormatType.PortableDocFormat;
+                }
+                rptDoc.ExportToHttpResponse(exportOpts, Response, true, "Report-Stock-Available");
 
             }
             catch (Exception ex)
@@ -210,23 +262,40 @@ namespace Reporting.Reports
                 cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 cmd.Connection = conn;
+                cmd.CommandTimeout = 120;
 
                 da.SelectCommand = cmd;
                 da.Fill(dt);
 
                 rptDoc = new ReportDocument();
-                var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.ExcelRecord
-                    : ExportFormatType.PortableDocFormat);
 
-                rptDoc.Load(Server.MapPath("./StockMaterial.rpt"));
+                var file = reportType == "excel" ? "./StockMaterialExcel.rpt" : "./StockMaterial.rpt";
+                rptDoc.Load(Server.MapPath(file));
                 rptDoc.Refresh();
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("@PackingMonth", packingMonth);
                 rptDoc.SetParameterValue("@Model", model);
                 rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 rptDoc.SetParameterValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
-                rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Stock-Material");
+
+                // Declare variables and get the export options.
+                ExportOptions exportOpts = new ExportOptions();
+                DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+                exportOpts = rptDoc.ExportOptions;
+
+                if (reportType == "excel")
+                {
+                    ExcelFormatOptions excelFormatOpts = new ExcelFormatOptions();
+                    excelFormatOpts.ExcelUseConstantColumnWidth = true;
+                    excelFormatOpts.ExcelAreaType = AreaSectionKind.GroupHeader;
+                    exportOpts.ExportFormatType = ExportFormatType.Excel;
+                    exportOpts.FormatOptions = excelFormatOpts;
+                }
+                else
+                {
+                    exportOpts.ExportFormatType = ExportFormatType.PortableDocFormat;
+                }
+                rptDoc.ExportToHttpResponse(exportOpts, Response, true, "Report-Stock-Material");
 
             }
             catch (Exception ex)
@@ -258,21 +327,39 @@ namespace Reporting.Reports
                 cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
                 cmd.Connection = conn;
+                cmd.CommandTimeout = 120;
 
                 da.SelectCommand = cmd;
                 da.Fill(dt);
 
-                var rptReponse = (reportType == "excel"
-                    ? ExportFormatType.ExcelRecord
-                    : ExportFormatType.PortableDocFormat);
+                var file = reportType == "excel" ? "./CarsMovementExcel.rpt" : "./CarsMovement.rpt";
 
-                rptDoc.Load(Server.MapPath("./CarsMovement.rpt"));
+                rptDoc.Load(Server.MapPath(file));
                 rptDoc.SetDataSource(dt);
                 rptDoc.SetParameterValue("@PackingMonth", packingMonth);
                 rptDoc.SetParameterValue("@Model", model);
                 rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
                 rptDoc.SetParameterValue("@DateTo", dateTo.ToString("yyyy-MM-dd"));
-                rptDoc.ExportToHttpResponse(rptReponse, Response, true, "Report-Cars-Finish-Good");
+
+                // Declare variables and get the export options.
+                ExportOptions exportOpts = new ExportOptions();
+                DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+                exportOpts = rptDoc.ExportOptions;
+
+                if (reportType == "excel")
+                {
+                    ExcelFormatOptions excelFormatOpts = new ExcelFormatOptions();
+                    excelFormatOpts.ExcelUseConstantColumnWidth = true;
+                    excelFormatOpts.ExcelAreaType = AreaSectionKind.Detail;
+                    exportOpts.ExportFormatType = ExportFormatType.Excel;
+                    exportOpts.FormatOptions = excelFormatOpts;
+                }
+                else
+                {
+                    exportOpts.ExportFormatType = ExportFormatType.PortableDocFormat;
+                }
+
+                rptDoc.ExportToHttpResponse(exportOpts, Response, true, "Report-Cars-Finish-Good");
 
             }
             catch (Exception ex)
