@@ -198,16 +198,19 @@
     <Compile Include="Reports\PartsReceiveExcel.cs">
       <DependentUpon>PartsReceiveExcel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\SotckAvailableExcel.cs">
       <DependentUpon>SotckAvailableExcel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\StockMaterialExcel.cs">
       <DependentUpon>StockMaterialExcel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\StockMaterial.cs">
