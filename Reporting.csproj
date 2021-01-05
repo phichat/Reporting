@@ -169,8 +169,8 @@
     <Compile Include="Reports\PartsMovementExcel.cs">
       <DependentUpon>PartsMovementExcel.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\PartsMovement.cs">
       <AutoGen>True</AutoGen>
