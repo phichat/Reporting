@@ -50,10 +50,11 @@ namespace Reporting.Reports
 
                     case "PartsMovement":
                         var partNo = Request.QueryString["PartNo"];
+                        var factoryId = int.Parse( Request.QueryString["FactoryId"]);
                         model = Request.QueryString["Model"];
                         dateFrom = DateTime.Parse(Request.QueryString["DateFrom"]);
                         dateTo = DateTime.Parse(Request.QueryString["DateTo"]);
-                        PartsMovement(model, partNo, dateFrom, dateTo, reportType);
+                        PartsMovement(factoryId, model, partNo, dateFrom, dateTo, reportType);
                         break;
 
                     case "CarsMovement":
@@ -130,7 +131,7 @@ namespace Reporting.Reports
 
         }
 
-        private void PartsMovement(string model, string partNo, DateTime dateFrom, DateTime dateTo, string reportType)
+        private void PartsMovement(int factoryId, string model, string partNo, DateTime dateFrom, DateTime dateTo, string reportType)
         {
             conn = new SqlConnection(connTaap);
             var cmd = new SqlCommand();
@@ -144,6 +145,7 @@ namespace Reporting.Reports
 
                 cmd.CommandText = "dbo.sp_rptPartsMovement";
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@FactoryId", factoryId);
                 cmd.Parameters.AddWithValue("@Model", model);
                 cmd.Parameters.AddWithValue("@PartNo", partNo);
                 cmd.Parameters.AddWithValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));
@@ -155,9 +157,17 @@ namespace Reporting.Reports
                 da.Fill(dt);
 
                
-                var pathFile = reportType == "excel" ? "./PartsMovementExcel.rpt" : "./PartsMovement.rpt";
+                var pathFile = "";
+                if (reportType == "exel")
+                {
+                    pathFile = factoryId == 1 ? "./PartsMovementExcelFac1.rpt" : "./PartsMovementExcel.rpt";
+                } else
+                {
+                    pathFile = factoryId == 1 ? "./PartsMovementFac1.rpt" : "./PartsMovement.rpt";
+                }
                 rptDoc.Load(Server.MapPath(pathFile));
                 rptDoc.SetDataSource(dt);
+                rptDoc.SetParameterValue("@FactoryId", factoryId);
                 rptDoc.SetParameterValue("@Model", model);
                 rptDoc.SetParameterValue("@PartNo", partNo);
                 rptDoc.SetParameterValue("@DateFrom", dateFrom.ToString("yyyy-MM-dd"));

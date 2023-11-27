@@ -134,6 +134,7 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\TaapReport.pubxml" />
+    <None Include="Properties\PublishProfiles\UAT.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -165,6 +166,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CarsMovementExcel.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PartsMovementExcelFac1.cs">
+      <DependentUpon>PartsMovementExcelFac1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\PartsMovementFac1.cs">
+      <DependentUpon>PartsMovementFac1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reports\PartsMovementExcel.cs">
       <DependentUpon>PartsMovementExcel.rpt</DependentUpon>
@@ -234,6 +247,14 @@
     <EmbeddedResource Include="Reports\CarsMovementExcel.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CarsMovementExcel.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PartsMovementExcelFac1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PartsMovementExcelFac1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PartsMovementFac1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PartsMovementFac1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PartsMovementExcel.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
